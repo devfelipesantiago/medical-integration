@@ -27,10 +27,6 @@ export class IntegracaoService {
     private readonly logger: Logger,
   ) {}
 
-  /**
-   * Verifica se algum exame do pedido já possui imagem DICOM correspondente.
-   * Marca o pedido como integrado caso positivo.
-   */
   async verificarIntegracaoPedido(pedido: Pedido): Promise<Pedido> {
     if (pedido.integrado) return pedido;
 
@@ -55,10 +51,6 @@ export class IntegracaoService {
     return pedido;
   }
 
-  /**
-   * Busca os AccessionNumbers de exames já presentes no sistema
-   * para os itens de um pedido. Usado ao vincular documentos imediatamente.
-   */
   async resolverExamesIntegradosDoPedido(pedido: Pedido): Promise<string[]> {
     const accessionNumbers = pedido.exames.map((e) => e.accessionNumber);
     if (accessionNumbers.length === 0) return [];
@@ -70,11 +62,6 @@ export class IntegracaoService {
     return examesEncontrados.map((e) => e.accessionNumber);
   }
 
-  /**
-   * Dado um AccessionNumber recém-chegado, busca todos os pedidos
-   * que referenciam esse AccessionNumber, marca-os como integrados
-   * e vincula seus documentos pendentes.
-   */
   async processarChegadaDeExame(accessionNumber: string): Promise<void> {
     const exameItems = await this.exameItemRepo.find({
       where: { accessionNumber },
@@ -93,8 +80,6 @@ export class IntegracaoService {
       await this.integrarPedido(item.pedido, accessionNumber);
     }
   }
-
-  // ─── helpers privados ──────────────────────────────────────────────────────
 
   private async integrarPedido(
     pedido: Pedido,

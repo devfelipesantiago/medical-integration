@@ -41,7 +41,6 @@ export class PedidosService implements IPedidosService {
       pedido = await this.createNovoPedido(dto);
     }
 
-    // Delega a verificação de integração ao IntegracaoService
     pedido = await this.integracaoService.verificarIntegracaoPedido(pedido);
 
     this.logger.info('Pedido processado', {
@@ -67,8 +66,6 @@ export class PedidosService implements IPedidosService {
 
     return pedido;
   }
-
-  // ─── helpers privados ──────────────────────────────────────────────────────
 
   private async createNovoPedido(dto: CreatePedidoDto): Promise<Pedido> {
     const pedido = this.pedidoRepo.create({

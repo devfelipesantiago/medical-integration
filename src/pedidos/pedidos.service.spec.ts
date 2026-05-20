@@ -18,7 +18,6 @@ const makeRepo = (overrides: Partial<any> = {}) => ({
   ...overrides,
 });
 
-// Mock do IntegracaoService — o contrato, não a implementação
 const mockIntegracaoService = {
   verificarIntegracaoPedido: jest.fn(async (pedido) => pedido),
   resolverExamesIntegradosDoPedido: jest.fn(async () => []),
@@ -65,7 +64,6 @@ describe('PedidosService', () => {
 
   afterEach(() => jest.clearAllMocks());
 
-  // ─── Cenário 1 ──────────────────────────────────────────────────────────
   describe('Cenário 1: Pedido chega e não existe exame correspondente', () => {
     it('deve salvar pedido e delegar verificação de integração', async () => {
       const dto = dtoPedido();
@@ -78,7 +76,6 @@ describe('PedidosService', () => {
       }));
       exameItemRepo.save.mockResolvedValue([{ accessionNumber: '930' }]);
 
-      // IntegracaoService retorna o pedido como não integrado
       mockIntegracaoService.verificarIntegracaoPedido.mockResolvedValue({
         codigoPedido: 616,
         integrado: false,
@@ -92,7 +89,6 @@ describe('PedidosService', () => {
     });
   });
 
-  // ─── Cenário 2 ──────────────────────────────────────────────────────────
   describe('Cenário 2: Pedido chega e já existe exame correspondente', () => {
     it('deve retornar pedido integrado quando IntegracaoService confirmar', async () => {
       const dto = dtoPedido();
@@ -101,7 +97,6 @@ describe('PedidosService', () => {
       pedidoRepo.save.mockImplementation(async (e) => ({ ...e, codigoPedido: 616 }));
       exameItemRepo.save.mockResolvedValue([{ accessionNumber: '930' }]);
 
-      // IntegracaoService encontrou exame e marcou como integrado
       mockIntegracaoService.verificarIntegracaoPedido.mockResolvedValue({
         codigoPedido: 616,
         integrado: true,
@@ -114,7 +109,6 @@ describe('PedidosService', () => {
     });
   });
 
-  // ─── Cenário 5 ──────────────────────────────────────────────────────────
   describe('Cenário 5: Pedido chega novamente com novo exame', () => {
     it('deve adicionar apenas o exame novo, sem duplicar', async () => {
       const dto = {
@@ -160,7 +154,6 @@ describe('PedidosService', () => {
     });
   });
 
-  // ─── findOne ────────────────────────────────────────────────────────────
   describe('findOne', () => {
     it('deve retornar o pedido quando encontrado', async () => {
       const pedido = { codigoPedido: 616, integrado: false };

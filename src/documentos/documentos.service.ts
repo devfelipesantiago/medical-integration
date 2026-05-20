@@ -58,7 +58,6 @@ export class DocumentosService implements IDocumentosService {
       examesVinculados: [],
     });
 
-    // Delega ao IntegracaoService a busca dos exames já integrados
     if (pedido.integrado) {
       const examesVinculados =
         await this.integracaoService.resolverExamesIntegradosDoPedido(pedido);
@@ -99,8 +98,6 @@ export class DocumentosService implements IDocumentosService {
       order: { criadoEm: 'ASC' },
     });
   }
-
-  // ─── helpers privados ──────────────────────────────────────────────────────
 
   private async verificarDuplicidade(
     codigoDocumento: number,

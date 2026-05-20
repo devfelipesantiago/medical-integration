@@ -47,7 +47,6 @@ describe('IntegracaoService', () => {
 
   afterEach(() => jest.clearAllMocks());
 
-  // ─── verificarIntegracaoPedido ───────────────────────────────────────────
   describe('verificarIntegracaoPedido', () => {
     it('deve marcar pedido como integrado quando exame correspondente existe', async () => {
       const pedido = {
@@ -90,7 +89,6 @@ describe('IntegracaoService', () => {
     });
   });
 
-  // ─── processarChegadaDeExame (Cenário 4 end-to-end no serviço) ───────────
   describe('processarChegadaDeExame', () => {
     it('deve integrar pedido e vincular documentos pendentes', async () => {
       exameItemRepo.find.mockResolvedValue([
@@ -155,7 +153,6 @@ describe('IntegracaoService', () => {
     });
   });
 
-  // ─── resolverExamesIntegradosDoPedido ────────────────────────────────────
   describe('resolverExamesIntegradosDoPedido', () => {
     it('deve retornar apenas os accessionNumbers presentes na tabela de exames', async () => {
       const pedido = {

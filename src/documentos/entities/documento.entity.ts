@@ -31,10 +31,6 @@ export class Documento {
   @Column({ default: false })
   integrado: boolean;
 
-  /**
-   * Lista de AccessionNumbers dos exames aos quais este documento foi vinculado.
-   * Armazenada como JSON text no SQLite.
-   */
   @Column({
     type: 'text',
     nullable: true,

@@ -54,7 +54,6 @@ describe('DocumentosService', () => {
 
   afterEach(() => jest.clearAllMocks());
 
-  // ─── Cenário 3 ──────────────────────────────────────────────────────────
   describe('Cenário 3: Documento chega para pedido não integrado', () => {
     it('deve salvar documento com integrado=false sem chamar IntegracaoService', async () => {
       documentoRepo.findOne.mockResolvedValue(null);
@@ -72,7 +71,6 @@ describe('DocumentosService', () => {
     });
   });
 
-  // ─── Cenário 6 ──────────────────────────────────────────────────────────
   describe('Cenário 6: Documento duplicado', () => {
     it('deve lançar ConflictException', async () => {
       documentoRepo.findOne.mockResolvedValue({ id: 1, codigoDocumento: 251, codigoPedido: 615 });

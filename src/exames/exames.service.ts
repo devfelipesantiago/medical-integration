@@ -28,7 +28,6 @@ export class ExamesService implements IExamesService {
 
     const exame = await this.salvarExame(dto);
 
-    // Delega toda a lógica de integração ao IntegracaoService
     await this.integracaoService.processarChegadaDeExame(dto.AccessionNumber);
 
     return exame;
@@ -45,8 +44,6 @@ export class ExamesService implements IExamesService {
 
     return exame;
   }
-
-  // ─── helpers privados ──────────────────────────────────────────────────────
 
   private async salvarExame(dto: CreateExameDto): Promise<Exame> {
     let exame = await this.exameRepo.findOne({

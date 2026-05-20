@@ -49,7 +49,6 @@ describe('ExamesService', () => {
 
   afterEach(() => jest.clearAllMocks());
 
-  // ─── Cenário 4 ──────────────────────────────────────────────────────────
   describe('Cenário 4: Exame chega após pedido com documento pendente', () => {
     it('deve salvar o exame e delegar a integração ao IntegracaoService', async () => {
       const dto = dtoExame();

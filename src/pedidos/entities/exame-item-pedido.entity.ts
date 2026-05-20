@@ -26,7 +26,6 @@ export class ExameItemPedido {
   @Column()
   nomeProcedimento: string;
 
-  // FK column exposed para uso no índice composto
   @Column({ type: 'integer', nullable: true })
   pedidoCodigoPedido: number;
 
